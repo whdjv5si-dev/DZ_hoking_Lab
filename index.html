@@ -2,171 +2,129 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#05060a">
 <title>DZ Hooking Lab | CYBER MOD</title>
 <link rel="icon" type="image/png" href="icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Cairo', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   body {
     min-height: 100vh;
     background: #05060a;
     color: #e6f7ff;
-    overflow-x: hidden;
+    padding-bottom: 30px;
     position: relative;
-    padding-bottom: 40px;
+    /* منع التمرير الأفقي واللاق */
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeSpeed;
   }
 
-  /* خلفية شبكة سايبر */
+  /* خلفية ثابتة بدون أنيميشن مستهلك */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(0, 255, 200, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 200, 0.06) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(rgba(0, 255, 200, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 200, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
     z-index: -2;
-    animation: gridMove 20s linear infinite;
+    will-change: transform;
   }
 
-  @keyframes gridMove {
-    0% { background-position: 0 0; }
-    100% { background-position: 40px 40px; }
-  }
-
-  /* توهج ألوان */
+  /* توهج ثابت بدون أنيميشن */
   body::after {
     content: "";
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(circle at 20% 20%, rgba(0, 255, 200, 0.15), transparent 40%),
-      radial-gradient(circle at 80% 80%, rgba(180, 0, 255, 0.15), transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(0, 150, 255, 0.08), transparent 60%);
+      radial-gradient(circle at 20% 10%, rgba(0, 255, 200, 0.12), transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(180, 0, 255, 0.12), transparent 45%);
     z-index: -1;
-    animation: glowPulse 8s ease-in-out infinite alternate;
   }
 
-  @keyframes glowPulse {
-    0% { opacity: 0.6; }
-    100% { opacity: 1; }
-  }
-
-  /* شعار أعلى الصفحة */
+  /* ===== الشعار ===== */
   .brand {
     text-align: center;
-    padding: 30px 15px 10px;
-    position: relative;
+    padding: 25px 15px 8px;
   }
 
   .brand-logo {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #00ffc8;
-    box-shadow:
-      0 0 15px #00ffc8,
-      0 0 40px rgba(0, 255, 200, 0.5),
-      inset 0 0 20px rgba(0, 255, 200, 0.3);
-    animation: logoFloat 4s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.7);
     background: #0a0e17;
-  }
-
-  @keyframes logoFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-8px) rotate(2deg); }
   }
 
   .brand h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: clamp(1.6rem, 5vw, 2.6rem);
-    margin-top: 15px;
-    letter-spacing: 3px;
-    background: linear-gradient(90deg, #00ffc8, #00b3ff, #b400ff, #00ffc8);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 6s linear infinite;
-    text-shadow: 0 0 30px rgba(0, 255, 200, 0.3);
-  }
-
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
+    font-size: clamp(1.5rem, 6vw, 2.4rem);
+    margin-top: 12px;
+    letter-spacing: 2px;
+    color: #00ffc8;
+    text-shadow: 0 0 20px rgba(0, 255, 200, 0.8), 0 0 40px rgba(0, 255, 200, 0.4);
   }
 
   .brand .subtitle {
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    color: #00ffc8;
-    letter-spacing: 6px;
-    margin-top: 8px;
-    opacity: 0.8;
-    text-shadow: 0 0 10px #00ffc8;
+    font-size: 0.75rem;
+    color: #b400ff;
+    letter-spacing: 5px;
+    margin-top: 6px;
+    text-shadow: 0 0 12px rgba(180, 0, 255, 0.8);
   }
 
-  /* الحاوية */
+  /* ===== الحاوية ===== */
   .container {
-    max-width: 900px;
+    max-width: 780px;
     margin: 0 auto;
-    padding: 20px 18px;
+    padding: 18px 14px;
   }
 
-  /* بطاقة الترحيب */
+  /* ===== بطاقة الترحيب ===== */
   .welcome-card {
-    background: rgba(10, 15, 25, 0.75);
+    background: rgba(10, 15, 25, 0.8);
     border: 1px solid rgba(0, 255, 200, 0.3);
-    border-radius: 18px;
-    padding: 28px 24px;
-    backdrop-filter: blur(12px);
-    box-shadow:
-      0 0 25px rgba(0, 255, 200, 0.15),
-      inset 0 0 30px rgba(0, 255, 200, 0.05);
-    margin-bottom: 25px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .welcome-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00ffc8, transparent);
-    animation: scanLine 3s linear infinite;
-  }
-
-  @keyframes scanLine {
-    0% { left: -100%; }
-    100% { left: 100%; }
+    border-radius: 16px;
+    padding: 22px 18px;
+    box-shadow: 0 0 20px rgba(0, 255, 200, 0.12);
+    margin-bottom: 20px;
   }
 
   .welcome-card h2 {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     color: #00ffc8;
-    margin-bottom: 15px;
-    text-shadow: 0 0 15px rgba(0, 255, 200, 0.6);
+    margin-bottom: 12px;
+    text-shadow: 0 0 12px rgba(0, 255, 200, 0.6);
   }
 
   .welcome-card p {
-    line-height: 1.9;
+    line-height: 1.8;
     color: #c8d8e8;
-    font-size: 1rem;
-    margin-bottom: 14px;
+    font-size: 0.92rem;
+    margin-bottom: 12px;
   }
 
-  .welcome-card .highlight {
+  .highlight {
     color: #00ffc8;
     font-weight: 700;
   }
@@ -174,9 +132,8 @@
   .features-title {
     color: #b400ff;
     font-weight: 700;
-    margin: 18px 0 10px;
-    font-size: 1.1rem;
-    text-shadow: 0 0 12px rgba(180, 0, 255, 0.5);
+    margin: 14px 0 8px;
+    font-size: 1rem;
   }
 
   .features-list {
@@ -184,121 +141,164 @@
   }
 
   .features-list li {
-    padding: 10px 12px;
-    margin-bottom: 8px;
+    padding: 9px 12px;
+    margin-bottom: 7px;
     background: rgba(0, 255, 200, 0.05);
     border-right: 3px solid #00ffc8;
     border-radius: 8px;
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     color: #d8e8f5;
-    transition: all 0.3s ease;
-  }
-
-  .features-list li:hover {
-    background: rgba(0, 255, 200, 0.12);
-    transform: translateX(-6px);
-    border-right-color: #b400ff;
   }
 
   .cta-text {
     text-align: center;
-    margin-top: 18px;
+    margin-top: 14px;
     color: #00ffc8;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.92rem;
+  }
+
+  /* ===== قسم التحميل ===== */
+  .download-section {
+    text-align: center;
+    margin: 25px 0 15px;
+    padding: 20px 15px;
+    background: rgba(10, 15, 25, 0.7);
+    border: 1px solid rgba(0, 255, 200, 0.2);
+    border-radius: 16px;
+  }
+
+  .download-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    color: #00ffc8;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
     text-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
   }
 
-  /* زر التحميل الرئيسي */
-  .download-section {
-    text-align: center;
-    margin: 30px 0;
+  /* شريط التقدم */
+  .progress-wrap {
+    width: 100%;
+    max-width: 400px;
+    height: 26px;
+    background: #0a0e17;
+    border: 1px solid rgba(0, 255, 200, 0.3);
+    border-radius: 20px;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
   }
 
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00ffc8, #00b3ff);
+    border-radius: 20px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(0, 255, 200, 0.8);
+    position: relative;
+  }
+
+  .progress-bar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shineBar 1.8s linear infinite;
+  }
+
+  @keyframes shineBar {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .progress-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 0 5px #000, 0 0 5px #000;
+    z-index: 2;
+    letter-spacing: 1px;
+  }
+
+  /* زر التحميل */
   .download-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    padding: 18px 50px;
+    gap: 10px;
+    padding: 16px 40px;
+    width: 100%;
+    max-width: 400px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     font-weight: 900;
     letter-spacing: 2px;
-    color: #05060a;
-    background: linear-gradient(135deg, #00ffc8, #00b3ff);
-    border: none;
-    border-radius: 60px;
-    cursor: pointer;
+    color: #6b7c8c;
+    background: #0a0e17;
+    border: 2px solid #2a3545;
+    border-radius: 50px;
+    cursor: not-allowed;
     text-decoration: none;
+    transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
-    box-shadow:
-      0 0 25px rgba(0, 255, 200, 0.6),
-      0 0 50px rgba(0, 255, 200, 0.3);
-    transition: all 0.3s ease;
-    animation: btnPulse 2.5s ease-in-out infinite;
+  }
+
+  /* الزر مفعّل */
+  .download-btn.active {
+    color: #05060a;
+    background: linear-gradient(135deg, #00ffc8, #00b3ff);
+    border-color: #00ffc8;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(0, 255, 200, 0.7), 0 0 50px rgba(0, 255, 200, 0.3);
+    animation: btnPulse 2s ease-in-out infinite;
   }
 
   @keyframes btnPulse {
-    0%, 100% {
-      box-shadow: 0 0 25px rgba(0, 255, 200, 0.6), 0 0 50px rgba(0, 255, 200, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(0, 255, 200, 0.9), 0 0 80px rgba(0, 255, 200, 0.5);
-    }
+    0%, 100% { box-shadow: 0 0 25px rgba(0, 255, 200, 0.7), 0 0 50px rgba(0, 255, 200, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(0, 255, 200, 1), 0 0 70px rgba(0, 255, 200, 0.5); }
   }
 
-  .download-btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    background: linear-gradient(135deg, #b400ff, #00ffc8);
-    color: #fff;
+  .download-btn.active:active {
+    transform: scale(0.97);
   }
 
-  .download-btn:active {
-    transform: translateY(0) scale(0.98);
+  .download-btn .lock-icon,
+  .download-btn .download-icon {
+    font-size: 1.2rem;
   }
 
-  .download-btn::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-    animation: shine 2.5s linear infinite;
+  .download-hint {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: #8a9aab;
+    text-align: center;
   }
 
-  @keyframes shine {
-    0% { left: -100%; }
-    100% { left: 100%; }
+  .download-hint .step {
+    color: #00ffc8;
+    font-weight: 700;
   }
 
-  .download-icon {
-    font-size: 1.5rem;
-    animation: bounceDown 1.5s ease-in-out infinite;
-  }
-
-  @keyframes bounceDown {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
-  }
-
-  /* أزرار التواصل */
+  /* ===== أزرار التواصل ===== */
   .social-section {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin: 30px 0 20px;
+    flex-direction: column;
+    gap: 12px;
+    margin: 22px 0;
   }
 
   .social-btn {
-    flex: 1;
-    min-width: 200px;
-    max-width: 300px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
@@ -307,87 +307,135 @@
     font-weight: 700;
     text-decoration: none;
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: transform 0.2s ease, background 0.3s ease;
+    border: 2px solid;
     position: relative;
     overflow: hidden;
-    border: 2px solid;
   }
 
   .youtube-btn {
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(255, 0, 51, 0.12);
     border-color: #ff0033;
-    color: #ff3355;
-    box-shadow: 0 0 20px rgba(255, 0, 50, 0.3);
+    color: #ff5577;
   }
 
-  .youtube-btn:hover {
-    background: #ff0033;
-    color: #fff;
-    box-shadow: 0 0 40px rgba(255, 0, 50, 0.7);
-    transform: translateY(-4px);
+  .youtube-btn.done {
+    background: rgba(0, 255, 200, 0.15);
+    border-color: #00ffc8;
+    color: #00ffc8;
   }
 
   .telegram-btn {
-    background: rgba(0, 150, 255, 0.1);
+    background: rgba(0, 150, 255, 0.12);
     border-color: #0096ff;
-    color: #33bbff;
-    box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+    color: #55ccff;
   }
 
-  .telegram-btn:hover {
-    background: #0096ff;
-    color: #fff;
-    box-shadow: 0 0 40px rgba(0, 150, 255, 0.7);
-    transform: translateY(-4px);
+  .telegram-btn.done {
+    background: rgba(0, 255, 200, 0.15);
+    border-color: #00ffc8;
+    color: #00ffc8;
+  }
+
+  .social-btn:active {
+    transform: scale(0.97);
   }
 
   .social-btn svg {
     width: 26px;
     height: 26px;
     fill: currentColor;
+    flex-shrink: 0;
   }
 
-  /* الفوتر */
+  .social-btn .check {
+    margin-right: auto;
+    font-size: 1.1rem;
+    display: none;
+  }
+
+  .social-btn.done .check {
+    display: inline;
+  }
+
+  .social-btn.done::after {
+    content: "✓ مكتمل";
+    position: absolute;
+    left: 15px;
+    font-size: 0.75rem;
+    font-weight: 900;
+  }
+
+  /* ===== الفوتر ===== */
   .footer {
     text-align: center;
-    padding: 25px 15px 10px;
+    padding: 20px 15px 10px;
     color: #6b7c8c;
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(0, 255, 200, 0.15);
-    margin-top: 30px;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(0, 255, 200, 0.12);
+    margin-top: 20px;
   }
 
   .footer .glow {
     color: #00ffc8;
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
   }
 
-  /* تأثيرات على الجوال */
-  @media (max-width: 480px) {
-    .brand-logo { width: 90px; height: 90px; }
-    .download-btn {
-      padding: 16px 32px;
-      font-size: 1rem;
-      width: 100%;
+  /* ===== إشعار منبثق ===== */
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(10, 15, 25, 0.95);
+    border: 1px solid #00ffc8;
+    color: #00ffc8;
+    padding: 12px 22px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 0 25px rgba(0, 255, 200, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.4s ease;
+    text-align: center;
+    max-width: 90%;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* منع الأنيميشن للأجهزة الضعيفة */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
     }
-    .welcome-card { padding: 22px 18px; }
-    .social-btn { min-width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .brand-logo { width: 85px; height: 85px; }
+    .download-btn { padding: 14px 25px; font-size: 0.95rem; }
+    .welcome-card { padding: 18px 14px; }
+    .welcome-card h2 { font-size: 1.05rem; }
+    .welcome-card p { font-size: 0.85rem; }
+    .features-list li { font-size: 0.82rem; padding: 8px 10px; }
   }
 </style>
 </head>
 <body>
 
-  <!-- الشعار -->
   <header class="brand">
-    <img src="icon.png" alt="DZ Hooking Lab Logo" class="brand-logo">
+    <img src="icon.png" alt="DZ Hooking Lab" class="brand-logo">
     <h1>DZ HOOKING LAB</h1>
     <div class="subtitle">CYBER • REVERSE • MOD</div>
   </header>
 
   <main class="container">
 
-    <!-- بطاقة الترحيب -->
+    <!-- الترحيب -->
     <section class="welcome-card">
       <h2>مرحباً بكم في DZ Hooking Lab! 🔬🔥</h2>
       <p>
@@ -408,26 +456,39 @@
       </p>
     </section>
 
-    <!-- زر التحميل -->
+    <!-- قسم التحميل -->
     <section class="download-section">
-      <a href="https://www.mediafire.com/file/8txhtbz02gei20g/DZ+MOD.apk/file"
-         target="_blank" rel="noopener"
-         class="download-btn" id="downloadBtn">
-        <span class="download-icon">⬇</span>
-        <span>DOWNLOAD MOD</span>
+      <div class="download-title">🔓 UNLOCK DOWNLOAD</div>
+
+      <!-- شريط التقدم -->
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text" id="progressText">0%</div>
+      </div>
+
+      <!-- زر التحميل -->
+      <a href="#" id="downloadBtn" class="download-btn">
+        <span class="lock-icon" id="lockIcon">🔒</span>
+        <span id="btnLabel">LOCKED</span>
       </a>
+
+      <div class="download-hint" id="downloadHint">
+        أكمل الخطوتين أدناه لفتح التحميل
+      </div>
     </section>
 
     <!-- أزرار التواصل -->
     <section class="social-section">
-      <a href="https://www.youtube.com/@MrSecurity333" target="_blank" rel="noopener" class="social-btn youtube-btn">
+      <a href="https://www.youtube.com/@MrSecurity333" target="_blank" rel="noopener"
+         class="social-btn youtube-btn" id="ytBtn">
         <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
-        <span>YouTube</span>
+        <span>اشترك في YouTube (+50%)</span>
       </a>
 
-      <a href="https://t.me/gdch6" target="_blank" rel="noopener" class="social-btn telegram-btn">
+      <a href="https://t.me/gdch6" target="_blank" rel="noopener"
+         class="social-btn telegram-btn" id="tgBtn">
         <svg viewBox="0 0 24 24"><path d="M9.8 15.6l-.4 5.4c.6 0 .9-.3 1.2-.6l2.9-2.8 6 4.4c1.1.6 1.9.3 2.2-1l4-18.8c.4-1.6-.6-2.2-1.6-1.8L.8 9.7c-1.6.6-1.6 1.5-.3 1.9l5.6 1.7L18.9 5c.6-.4 1.1-.2.7.2l-9.8 9.4z"/></svg>
-        <span>Telegram</span>
+        <span>انضم إلى Telegram (+50%)</span>
       </a>
     </section>
 
@@ -435,46 +496,165 @@
 
   <footer class="footer">
     <p>© 2025 <span class="glow">DZ Hooking Lab</span> — All Rights Reserved</p>
-    <p style="margin-top:6px;">Built for the Cyber Community ⚡</p>
   </footer>
 
-  <script>
-    // تأثير الضغط على زر التحميل
-    const btn = document.getElementById('downloadBtn');
-    btn.addEventListener('click', function (e) {
-      // تأثير بصري فقط، الرابط يعمل طبيعياً
-      btn.innerHTML = '<span class="download-icon">⏳</span><span>OPENING...</span>';
-      setTimeout(() => {
-        btn.innerHTML = '<span class="download-icon">⬇</span><span>DOWNLOAD MOD</span>';
-      }, 2500);
-    });
+  <div class="toast" id="toast"></div>
 
-    // تأثير جزيئات سايبر على حركة الماوس (اختياري خفيف)
-    document.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.85) {
-        const dot = document.createElement('div');
-        dot.style.cssText = `
-          position: fixed;
-          left: ${e.clientX}px;
-          top: ${e.clientY}px;
-          width: 4px;
-          height: 4px;
-          background: #00ffc8;
-          border-radius: 50%;
-          pointer-events: none;
-          box-shadow: 0 0 10px #00ffc8;
-          z-index: 9999;
-          transition: all 1s ease;
-        `;
-        document.body.appendChild(dot);
-        setTimeout(() => {
-          dot.style.opacity = '0';
-          dot.style.transform = 'scale(3)';
-        }, 50);
-        setTimeout(() => dot.remove(), 1100);
+<script>
+(function() {
+  "use strict";
+
+  var DOWNLOAD_URL = "https://www.mediafire.com/file/8txhtbz02gei20g/DZ+MOD.apk/file";
+
+  // عناصر
+  var progressBar  = document.getElementById("progressBar");
+  var progressText = document.getElementById("progressText");
+  var downloadBtn  = document.getElementById("downloadBtn");
+  var lockIcon     = document.getElementById("lockIcon");
+  var btnLabel     = document.getElementById("btnLabel");
+  var hint         = document.getElementById("downloadHint");
+  var ytBtn        = document.getElementById("ytBtn");
+  var tgBtn        = document.getElementById("tgBtn");
+  var toast        = document.getElementById("toast");
+
+  // حالة الخطوات
+  var ytDone = false;
+  var tgDone = false;
+  var progress = 0;
+
+  // إظهار إشعار
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function() {
+      toast.classList.remove("show");
+    }, 2500);
+  }
+
+  // تحديث الشريط
+  function updateProgress() {
+    progress = (ytDone ? 50 : 0) + (tgDone ? 50 : 0);
+    progressBar.style.width = progress + "%";
+    progressText.textContent = progress + "%";
+
+    if (progress === 100) {
+      // تفعيل زر التحميل
+      downloadBtn.href = DOWNLOAD_URL;
+      downloadBtn.target = "_blank";
+      downloadBtn.rel = "noopener";
+      downloadBtn.classList.add("active");
+      lockIcon.textContent = "⬇";
+      btnLabel.textContent = "DOWNLOAD MOD";
+      hint.innerHTML = '<span class="step">✓</span> التحميل مفتوح الآن — اضغط الزر!';
+      showToast("🎉 تم فتح التحميل بنجاح!");
+    } else {
+      downloadBtn.href = "#";
+      downloadBtn.removeAttribute("target");
+      downloadBtn.classList.remove("active");
+      lockIcon.textContent = "🔒";
+      btnLabel.textContent = "LOCKED";
+      if (progress === 50) {
+        hint.innerHTML = 'خطوة واحدة متبقية — <span class="step">أكمل الخطوة الثانية</span>';
+      } else {
+        hint.innerHTML = 'أكمل الخطوتين أدناه لفتح التحميل';
       }
-    });
-  </script>
+    }
+  }
+
+  // دالة عامة لتحديد الخطوة
+  function markStep(which) {
+    if (which === "yt" && !ytDone) {
+      ytDone = true;
+      ytBtn.classList.add("done");
+      showToast("✅ تم تفعيل خطوة YouTube (+50%)");
+      updateProgress();
+    } else if (which === "tg" && !tgDone) {
+      tgDone = true;
+      tgBtn.classList.add("done");
+      showToast("✅ تم تفعيل خطوة Telegram (+50%)");
+      updateProgress();
+    }
+  }
+
+  // YouTube
+  ytBtn.addEventListener("click", function() {
+    // نضع علامة عند النقر (يفتح في نافذة جديدة)
+    setTimeout(function() {
+      markStep("yt");
+    }, 300);
+  });
+
+  // Telegram
+  tgBtn.addEventListener("click", function() {
+    setTimeout(function() {
+      markStep("tg");
+    }, 300);
+  });
+
+  // منع زر التحميل عند القفل
+  downloadBtn.addEventListener("click", function(e) {
+    if (progress < 100) {
+      e.preventDefault();
+      if (progress === 0) {
+        showToast("🔒 اشترك في YouTube و Telegram أولاً");
+      } else {
+        showToast("⚠️ أكمل الخطوة المتبقية");
+      }
+      return;
+    }
+    // عند الفتح: تغيير النص مؤقتاً
+    btnLabel.textContent = "OPENING...";
+    lockIcon.textContent = "⏳";
+    setTimeout(function() {
+      btnLabel.textContent = "DOWNLOAD MOD";
+      lockIcon.textContent = "⬇";
+    }, 3000);
+  });
+
+  // حفظ الحالة عند الرجوع من يوتيوب/تيليجرام
+  // (اختياري: يمكن إزالة السطور التالية إذا لا تريد الحفظ الدائم)
+  try {
+    if (localStorage.getItem("dz_yt") === "1") {
+      ytDone = true;
+      ytBtn.classList.add("done");
+    }
+    if (localStorage.getItem("dz_tg") === "1") {
+      tgDone = true;
+      tgBtn.classList.add("done");
+    }
+  } catch (err) {}
+
+  var _origMark = markStep;
+  markStep = function(which) {
+    _origMark(which);
+    try {
+      if (which === "yt") localStorage.setItem("dz_yt", "1");
+      if (which === "tg") localStorage.setItem("dz_tg", "1");
+    } catch (err) {}
+  };
+
+  // عند الرجوع للصفحة يتم تفعيل العلامة تلقائياً إذا فُتح الرابط
+  // عبر visibilitychange (بعد 1.5 ثانية من العودة)
+  var _leaveTime = 0;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      _leaveTime = Date.now();
+    } else if (_leaveTime && Date.now() - _leaveTime > 1500) {
+      // عاد المستخدم — نتحقق أي زر لم يُفعّل
+      // إذا كان أحدهما غير مفعل، نفعل الأولوية لليوتيوب ثم التيليجرام
+      if (!ytDone && !tgDone) {
+        // لم نعرف أي زر — لا نفعل شيء
+      } else if (!ytDone) {
+        // لا نفعل شيء
+      }
+    }
+  });
+
+  updateProgress();
+
+})();
+</script>
 
 </body>
 </html>
